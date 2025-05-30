@@ -1,0 +1,132 @@
+﻿@model ApplicationToDoTasks.Models.TodoTaskViewModel
+@using ApplicationToDoTasks.Models
+@{
+    ViewData["Title"] = "Todo List";
+}
+
+<h2>Todo List</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div style="color: green; margin-bottom: 10px; padding: 10px; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px;">
+        @TempData["Success"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div style="color: red; margin-bottom: 10px; padding: 10px; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px;">
+        @TempData["Error"]
+    </div>
+}
+
+
+
+@* //--------------- *@
+
+
+
+<div class="container-sec">
+    <div class="rightwithimg">
+        <div>
+            <div class="headingtext">
+                <h1>INTERACTIVE TODO LIST</h1>
+                <p>
+                    Manage your tasks efficiently with this interactive ToDo list
+                    application.
+                </p>
+            </div>
+            <div class="headingimg">
+                <img src="/img/img1.png" alt="" />
+            </div>
+        </div>
+    </div>
+
+    <div class="leftform">
+        <form id="todoForm" asp-action="AddTask" method="post">
+            <input type="text" name="title" placeholder="Task Title" required />
+            <textarea name="description" placeholder="Description (optional)"></textarea>
+      
+
+            <select name="priority" style="padding: 8px;">
+                <option value="0">Low Priority</option>
+                <option value="1" selected>Medium Priority</option>
+                <option value="2">High Priority</option>
+            </select>
+
+
+            <select name="categoryId" required style="padding: 8px;">
+                <option value="">Select Category</option>
+                @if (Model.Categories != null)
+                {
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Value">@category.Text</option>
+                    }
+                }
+            </select>
+
+
+
+            <button type="submit">Add Task</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="cardscont">
+    <br />
+
+    <h1>MY TASKS</h1>
+    <div id="taskList">
+        <!-- Sample Task Card -->
+      
+            @foreach (var task in Model.Tasks)
+            {
+          
+                <div class="task-card">
+
+                    <div class="task-info">
+                    <div class="task-title">@task.Title</div>
+                    <div class="task-desc">@task.Description</div>
+                        <div class="task-meta">
+                        <span class="meta-badge">Priority: @task.Priority</span>
+
+                        <span class="meta-badge">Category: @task.Category</span>
+                        </div>
+                    </div>
+
+                    <div class="task-actions">
+                        <div class="checkbox-container">
+
+
+
+                        <input type="checkbox" onchange="this.form.submit()" @(task.IsCompleted ? "checked" : "") />
+
+
+
+                            <label for="task1">Done</label>
+                        </div>
+                        <div class="icon-buttons">
+                        <a  asp-action="Edit" asp-route-id="@task.Id" title="Edit">
+                                <i class="ri-edit-line"></i>
+                            </a>
+                     
+                        <form asp-action="Delete" method="post"  onsubmit="return confirm('Delete this task?');">
+                            
+                            <input type="hidden" name="id" value="@task.Id" />
+                            <button type="submit" style="all: unset; cursor: pointer;">
+                                <i class="ri-delete-bin-line" title="Delete"></i>
+                            </button>
+
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        
+     
+
+
+    </div>
+
