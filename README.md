@@ -18,7 +18,8 @@ A simple ASP.NET Core MVC web application for managing a personal todo list. Eas
 
 ## 📸 Screenshot
 
-![WebsiteUi](https://github.com/user-attachments/assets/e4a324cb-b715-4a95-a0fa-a07bfa974181)
+![WebsiteUi1](https://github.com/user-attachments/assets/18fb45c1-ddd3-42b7-b740-5055827c8597)
+
 ![WebsiteUi2](https://github.com/user-attachments/assets/f5ce9fa7-7598-46f9-8f28-b0b4c0cfc923)
 
 ---
